@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer 
+	width="100%"
+	height="100%"
+	xmlns:components="components.*"
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:s="library://ns.adobe.com/flex/spark">
+
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.XMLListCollection;
+
+			import services.TrippleService;
+
+			[Bindable]
+			public var dataProvider:XMLListCollection;
+
+			[Bindable]
+			public var command:String;
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+
+	<s:Label 
+		x="20"
+		y="9"
+		text="Result count"/>
+	<s:Label 
+		id="count"
+		x="98"
+		y="9"
+		text="{dataProvider.length}"/>
+
+
+	<components:SearchResultDataGrid 
+		id="searchResultDG"
+		y="25"
+		width="100%"
+		height="100%"
+		dataProvider="{dataProvider}"
+		command="{command}"/>
+	<s:Label 
+		y="30"
+		right="120"
+		text="* Double click selected search to see details"
+		backgroundColor="#FFFFFF"
+		paddingBottom="2"
+		paddingLeft="5"
+		paddingRight="5"
+		paddingTop="2"/>
+
+
+
+	<s:Label 
+		y="30"
+		right="120"
+		text="Active Services {TrippleService.activeServices}"
+		fontSize="20"/>
+
+</s:BorderContainer>

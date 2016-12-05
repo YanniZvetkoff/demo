@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 width="100%" height="100%">
+	
+	<fx:Script>
+		<![CDATA[
+			import controller.ApplicationDispatcher;
+			
+			import model.ApplicationData;
+			
+			import mx.controls.Alert;
+			import mx.managers.PopUpManager;
+			
+			protected function createNewSearch(event:MouseEvent):void
+			{
+				var newSearch:CreateNewSearchPopUp = new CreateNewSearchPopUp();
+				PopUpManager.addPopUp(newSearch, this, true);
+				PopUpManager.centerPopUp(newSearch);
+				
+				newSearch.currentState = "new_search";
+				newSearch.closeButton.visible = false;
+				newSearch.title = "New Search Window";
+			}
+			
+			protected function editSearch(event:MouseEvent):void
+			{
+				var selectedItem:Object = dg_searches.selectedItem;
+				if (selectedItem == null){
+					Alert.show("No Search selected");
+					return;
+				}
+				
+				var newSearch:CreateNewSearchPopUp = new CreateNewSearchPopUp();
+				PopUpManager.addPopUp(newSearch, this, true);
+				PopUpManager.centerPopUp(newSearch);
+				
+				newSearch.searchName.text = selectedItem.title;
+				newSearch.searchDescription.text = selectedItem.description;
+				
+				newSearch.currentState = "edit_search";
+				newSearch.closeButton.visible = false;
+				newSearch.title = "Edit Search Window";
+			}			
+			
+			protected function activateSearch(event:MouseEvent):void
+			{
+				var selectedIndex:int = dg_searches.selectedIndex;
+				ApplicationDispatcher.activateSelectedSearch(selectedIndex);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:Button x="10" y="10" label="Activate Selected Search" click="activateSearch(event)"/>
+	
+	<s:Button x="348" y="10" label="Add new search" click="createNewSearch(event)"/>
+	<s:Button x="499" y="10" label="Edit selected search" click="editSearch(event)"/>
+	
+	<s:DataGrid id="dg_searches"
+		x="10" y="37" 	
+		variableRowHeight="true"
+		width="100%" height="100%" 
+		dataProvider="{ApplicationData.availableSearches}"
+		doubleClickEnabled="true" 
+		gridDoubleClick="activateSearch(event)"
+		>
+		
+		<s:columns>
+			<s:ArrayList>
+				<s:GridColumn width="58" headerText="{ApplicationDispatcher.deleteSearchCommand}" 
+							  itemRenderer="renderers.DGDeleteItemRenderer">
+					<s:headerRenderer>
+						<fx:Component>
+							<s:DefaultGridHeaderRenderer chromeColor="0xFFFFFF">
+								<s:Label text="" />
+							</s:DefaultGridHeaderRenderer>
+						</fx:Component>
+					</s:headerRenderer>
+				</s:GridColumn>
+				<s:GridColumn width="50" headerText="Active" dataField="is_selected">
+					<s:itemRenderer>
+						<fx:Component>
+							<s:GridItemRenderer>
+								<s:Label id="labelDisplay" width="100%" height="100%"
+										 textAlign="center" verticalAlign="middle"
+										 fontWeight="bold"/>
+							</s:GridItemRenderer>
+						</fx:Component>
+					</s:itemRenderer>  
+				</s:GridColumn>
+				<s:GridColumn width="170" dataField="title" headerText="Title" />
+				<s:GridColumn  dataField="description" headerText="Description"/>
+				<s:GridColumn width="250" dataField="keywords" headerText="Key Words" />
+			</s:ArrayList>
+		</s:columns>
+	</s:DataGrid>
+	
+	<s:Label left="20" bottom="20" text="* Double click selected search to activate it"/>
+	
+</s:Group>

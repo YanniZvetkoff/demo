@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow 
+	width="400"
+	height="350"
+	height.new_search="330"
+	mouseDownOutside="{PopUpManager.removePopUp(this);}"
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:s="library://ns.adobe.com/flex/spark">
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+
+	<fx:Script>
+		<![CDATA[
+			import controller.ApplicationDispatcher;
+
+			import mx.collections.XMLListCollection;
+			import mx.controls.Alert;
+			import mx.managers.PopUpManager;
+
+			[Bindable]
+			private var availableSearches:XMLListCollection = ApplicationData.availableSearches;
+
+			import model.ApplicationData;
+
+			protected function add_search_clickHandler(event:MouseEvent):void
+			{
+				var searches:XMLListCollection = ApplicationData.availableSearches;
+
+				var id:String = searchName.text;
+				while (id.indexOf(" ") > -1)
+				{
+					id = id.replace(" ", "");
+				}
+
+				// we have to see if the name already exist and deselect all searches in the list
+
+				// see if the name already exist
+				for each (var node:XML in searches)
+				{
+					if (node.id == id)
+					{
+						Alert.show("This name already exist");
+						return;
+					}
+				}
+
+				ApplicationDispatcher.addNewSearch(searchName.text, searchDescription.text);
+				PopUpManager.removePopUp(this);
+			}
+
+			protected function save_changes_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				ApplicationDispatcher.saveChangesSearch(searchName.text, searchDescription.text);
+				PopUpManager.removePopUp(this);
+
+			}
+
+			protected function cancel_clickHandler(event:MouseEvent):void
+			{
+				PopUpManager.removePopUp(this);
+
+			}
+		]]>
+	</fx:Script>
+
+	<s:states>
+		<s:State name="new_search"/>
+		<s:State name="edit_search"/>
+	</s:states>
+
+	<s:Label 
+		x="22"
+		y="26"
+		text="Create New Search"
+		text.edit_search="Edit Search"
+		fontSize="16"
+		fontWeight="bold"/>
+
+	<s:Label 
+		x="22"
+		y="70"
+		text="Search Name"/>
+	<s:TextInput 
+		id="searchName"
+		x="147"
+		y="64"
+		enabled.edit_search="false"/>
+	<s:Label 
+		x="158"
+		y="93"
+		text="* Max 25 characters"
+		fontSize="11"
+		includeIn="new_search"/>
+
+	<s:Label 
+		x="22"
+		y="120"
+		text="Search Description"/>
+	<s:TextArea 
+		id="searchDescription"
+		y="140"
+		height="78"
+		left="22"
+		right="22"/>
+	<s:Label 
+		x="56"
+		y="226"
+		text="* Max 250 characters"
+		fontSize="11"/>
+
+	<s:Button 
+		y="250"
+		width.edit_search="99"
+		width.new_search="84"
+		right.edit_search="146"
+		right.new_search="146"
+		label="Add Search"
+		label.edit_search="Save changes"
+		click.edit_search="save_changes_clickHandler(event)"
+		click.new_search="add_search_clickHandler(event)"/>
+
+	<s:Button 
+		y="250"
+		right="60"
+		label="Cancel"
+		click="cancel_clickHandler(event)"/>
+
+</s:TitleWindow>

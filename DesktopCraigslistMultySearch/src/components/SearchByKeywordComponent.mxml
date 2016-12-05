@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group 
+	width="100%"
+	height="100%"
+	creationComplete="creationCompleteHandler()"
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:ns="components.custom_tree.*"
+	xmlns:s="library://ns.adobe.com/flex/spark">
+
+
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.utils.StringUtil;
+
+			import model.ApplicationData;
+			import model.Cities;
+
+			import services.TrippleService;
+
+			[Bindable]
+			private var listCities:ArrayCollection = new ArrayCollection();
+
+			protected function creationCompleteHandler():void
+			{
+				listCities.source = Cities.cities;
+				cities_list.dataProvider = listCities;
+				cities_list.selectedIndex = 0;
+
+				categories_tree.dataProvider = Cities.categories;
+			}
+
+			protected function selection_service():void
+			{
+				ApplicationData.resetSearchResult();
+				ApplicationData.searchResultItems.removeAll();
+				var cityURL:String = this.cities_list.selectedItem;
+				sendService(cityURL);
+			}
+
+			protected function all_service(event:MouseEvent):void
+			{
+				ApplicationData.resetSearchResult();
+				ApplicationData.searchResultItems.removeAll();
+
+				var cityURL:String = "";
+				var cities:Array = Cities.allCities;
+				for (var i:int = 0; i < cities.length; i++)
+				{
+					cityURL = cities[i];
+					sendService(cityURL);
+				}
+
+			}
+
+			private var categories:Array;
+
+			private function sendService(cityURL:String):void
+			{
+				categories = new Array();
+				var categoriesXML:XML = Cities.categories;
+				getCategories(categoriesXML);
+
+				var keywords:String = this.keywords.text;
+				keywords = StringUtil.trim(keywords);
+				while (keywords.indexOf(" ") > 0)
+				{
+					keywords = keywords.replace(" ", "+");
+				}
+
+				for (var i:String in categories)
+				{
+					var category:String = categories[i];
+					var url:String = "http://" + cityURL + ".craigslist.org/search/" + category + "?query=" + keywords +
+						"&format=rss";
+					var service:TrippleService = new TrippleService(url);
+				}
+
+				// computer gigs
+				//	var url:String="http://" + cityURL + ".craigslist.org/search/cpg?query=" + keywords + "&format=rss";
+				//	var url:String="http://" + serviceURL + ".craigslist.org/search/cpg?query=" + keywords + "&format=rss";
+				//	var url:String="http://" + serviceURL + ".craigslist.org/search/jjj?query=" + keywords + "&format=rss";
+				// all comunity
+				//		var url:String="http://miami.craigslist.org/search/bia/brw?zoomToPosting=&catAbb=bik&query=bicycle";
+				//		var url:String="http://" + cityURL + ".craigslist.org/search/ccc?query=" + keywords + "&format=rss";
+				//service.url= yql_url(url);
+				//	var service:Service = Service.service;
+
+			}
+
+			private function getCategories(categoriesXML:XML):void
+			{
+
+				for each (var node:XML in categoriesXML.node)
+				{
+					if (node.@checked == 1)
+					{
+						categories.push((node.@value).toString());
+					}
+					else
+					{
+						if (node.children().length() > 0)
+						{
+							getCategories(node);
+						}
+					}
+				}
+
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+
+	<!--	<mx:Tree id="categories_tree"
+				 x="10" y="10"
+				 width="160" height="100%"
+				 labelField="@label"
+				 showRoot="true"/>-->
+
+	<ns:CategoriesTree 
+		id="categories_tree"
+		width="200"
+		height="100%"/>
+
+	<s:Group x="200">
+		<s:Label 
+			x="13"
+			y="19"
+			text="Search by keyword"
+			fontSize="13"
+			fontWeight="bold"/>
+		<s:TextInput 
+			id="keywords"
+			x="13"
+			y="39"
+			width="262"
+			prompt="enter keywords"/>
+		<s:Button 
+			x="317"
+			y="39"
+			label="Search all cities in the USA"
+			click="all_service(event)"/>
+
+		<s:Label 
+			x="13"
+			y="80"
+			text="Advanced search"
+			fontSize="13"
+			fontWeight="bold"/>
+		<s:Label 
+			x="13"
+			y="111"
+			text="Select City"
+			fontSize="13"/>
+		<s:DropDownList 
+			id="cities_list"
+			x="133"
+			y="103"/>
+		<s:Button 
+			x="317"
+			y="103"
+			label="Search selected city only"
+			click="selection_service();"/>
+	</s:Group>
+
+</s:Group>

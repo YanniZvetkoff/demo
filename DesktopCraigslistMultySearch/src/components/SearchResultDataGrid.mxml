@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:DataGrid 
+	width="100%"
+	height="100%"
+	doubleClickEnabled="true"
+	gridDoubleClick="itemDoubleClick(event)"
+	variableRowHeight="true"
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:s="library://ns.adobe.com/flex/spark">
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+
+	<fx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+
+			import spark.events.GridEvent;
+
+			import workers.CustomDateWorker;
+
+			[Bindable]
+			public var command:String;
+
+			private function itemDoubleClick(event:GridEvent):void
+			{
+				var item:XML = (XML)(event.currentTarget.selectedItem);
+
+				var ttlWindow:ShowSearchDetails = new ShowSearchDetails();
+				ttlWindow.item = item;
+				ttlWindow.command = command;
+				ttlWindow.index = selectedIndex;
+				PopUpManager.addPopUp(ttlWindow, this, true);
+				PopUpManager.centerPopUp(ttlWindow);
+			}
+
+			private function formatCity(item:Object, column:GridColumn):String
+			{
+				var city:String = String(item.link);
+				var index:int = city.indexOf(".");
+				city = city.substring(7, index);
+				return city;
+			}
+		]]>
+	</fx:Script>
+
+	<s:columns>
+		<s:ArrayList>
+			<s:GridColumn 
+				width="80"
+				headerText="{command}"
+				itemRenderer="renderers.DGDeleteItemRenderer">
+				<s:headerRenderer>
+					<fx:Component>
+						<s:DefaultGridHeaderRenderer chromeColor="0xFFFFFF">
+							<s:Label text=""/>
+						</s:DefaultGridHeaderRenderer>
+					</fx:Component>
+				</s:headerRenderer>
+			</s:GridColumn>
+			<s:GridColumn 
+				width="80"
+				dataField="dc_date"
+				headerText="Date"
+				itemRenderer="renderers.DGDateItemRenderer"
+				sortCompareFunction="CustomDateWorker.dateCompareFunction"/>
+			<s:GridColumn 
+				width="95"
+				labelFunction="formatCity"
+				dataField="link"
+				headerText="City"/>
+			<s:GridColumn 
+				width="220"
+				dataField="title"
+				headerText="Title"/>
+			<s:GridColumn 
+				dataField="description"
+				headerText="Description"/>
+		</s:ArrayList>
+	</s:columns>
+
+</s:DataGrid>

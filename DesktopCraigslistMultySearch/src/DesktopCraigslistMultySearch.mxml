@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication 
+	width="1000"
+	height="680"
+	applicationComplete="init()"
+	xmlns:components="components.*"
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:s="library://ns.adobe.com/flex/spark">
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+
+
+	<fx:Script>
+		<![CDATA[
+			import controller.ApplicationDispatcher;
+
+			import model.ApplicationData;
+			import model.StoredData;
+
+			import mx.controls.Alert;
+			import mx.events.CloseEvent;
+
+			private var exitAllowd:Boolean = false;
+
+			[Bindable]
+			private var noResults:String = "No New Search Results available."
+
+			private function init():void
+			{
+				this.addEventListener(Event.CLOSING, appClosing, false, 0, true);
+				ApplicationDispatcher.startApplication(this);
+			}
+
+			private function appClosing(e:Event):void
+			{
+				if (!exitAllowd)
+				{
+					// now looking if we have unsaved changes
+					if (ApplicationData.changes_yes)
+					{
+						e.preventDefault();
+						Alert.show("Some changes are not saved.\nDo you want to save the results before closing the application?",
+								   "Save the results", Alert.YES | Alert.NO, this, alertListener, null, Alert.YES);
+
+					}
+				}
+			}
+
+			private function alertListener(eventObj:CloseEvent):void
+			{
+				// Check to see if the OK button was pressed.
+				if (eventObj.detail == Alert.YES)
+				{
+					StoredData.saveResultsAndExit();
+				}
+				else if (eventObj.detail == Alert.NO)
+				{
+					closeApplication();
+				}
+			}
+
+			public function closeApplication():void
+			{
+				exitAllowd = true;
+				this.close();
+			}
+
+			public function showSpecificTab(tabIndex:int):void
+			{
+				tabs.selectedIndex = tabIndex;
+				// something for users info
+				// TODO
+			}
+		]]>
+	</fx:Script>
+
+	<s:Group 
+		width="100%"
+		height="30">
+		<s:Label 
+			bottom="2"
+			text="Active Search:"
+			fontSize="14"
+			fontWeight="bold"
+			paddingLeft="5"/>
+		<s:Label 
+			x="130"
+			bottom="2"
+			text="{ApplicationData.currentSearchTitle}"
+			fontSize="16"
+			fontWeight="bold"/>
+		<s:Button 
+			height="40"
+			right="20"
+			bottom="-25"
+			enabled="{ApplicationData.changes_yes}"
+			label="Save Results"
+			fontWeight="bold"
+			click="{ApplicationDispatcher.saveResults()}"/>
+	</s:Group>
+
+	<s:VGroup 
+		width="100%"
+		height="100%"
+		top="35"
+		gap="0">
+		<s:TabBar 
+			id="tabs"
+			dataProvider="{viewStack}"/>
+		<s:BorderContainer 
+			width="100%"
+			height="100%"
+			borderColor="#240101"
+			borderWeight="2">
+			<mx:ViewStack 
+				id="viewStack"
+				width="100%"
+				height="100%">
+				<s:NavigatorContent 
+					width="100%"
+					height="100%"
+					label="Manage Searches">
+					<s:BorderContainer 
+						left="0"
+						top="0"
+						right="0"
+						bottom="0">
+						<components:ManageSearchesComponent/>
+					</s:BorderContainer>
+				</s:NavigatorContent>
+				<s:NavigatorContent 
+					width="100%"
+					height="100%"
+					label="New Search by Keyword">
+					<components:SearchByKeywordComponent/>
+					<s:Label 
+						y="152"
+						left="250"
+						text="{noResults}"
+						color="#817D7D"
+						fontSize="20"
+						fontWeight="bold"
+						visible="{ApplicationData.searchResultItems.length == 0}"/>
+					<s:Label 
+						y="152"
+						left="250"
+						text="Starting New Search will replace existing Search Results.{'\n'}To keep the Search Results, you can move them to Favorites or Deleted items "
+						color="#817D7D"
+						fontSize="20"
+						fontWeight="bold"
+						textAlign="center"
+						visible="{ApplicationData.searchResultItems.length > 0}"/>
+				</s:NavigatorContent>
+				<s:NavigatorContent 
+					width="100%"
+					height="100%"
+					label="New Search Results">
+					<s:BorderContainer 
+						width="100%"
+						height="100%">
+						<components:SearchResultComponent 
+							id="searchResultDG"
+							width="100%"
+							height="100%"
+							dataProvider="{ApplicationData.searchResultItems}"
+							command="searchResult"/>
+						<s:Label 
+							y="132"
+							left="150"
+							text="{noResults}"
+							color="#817D7D"
+							fontSize="20"
+							fontWeight="bold"
+							visible="{ApplicationData.searchResultItems.length == 0}"/>
+					</s:BorderContainer>
+				</s:NavigatorContent>
+				<s:NavigatorContent 
+					width="100%"
+					height="100%"
+					label="Added to Favorites">
+					<s:BorderContainer 
+						width="100%"
+						height="100%">
+						<components:SearchResultComponent 
+							id="favoritesDG"
+							width="100%"
+							height="100%"
+							dataProvider="{ApplicationData.favoriteItems}"
+							command="favorites"/>
+					</s:BorderContainer>
+				</s:NavigatorContent>
+				<s:NavigatorContent 
+					width="100%"
+					height="100%"
+					label="Deleted Search Results">
+					<s:BorderContainer 
+						width="100%"
+						height="100%">
+						<components:SearchResultComponent 
+							id="deletedDG"
+							width="100%"
+							height="100%"
+							dataProvider="{ApplicationData.deletedItems}"
+							command="deleted"/>
+					</s:BorderContainer>
+				</s:NavigatorContent>
+				<s:NavigatorContent 
+					width="100%"
+					height="100%"
+					label="Help">
+					<s:BorderContainer 
+						width="100%"
+						height="100%">
+						<s:Label 
+							text="How to work with this Application"
+							horizontalCenter="0"
+							verticalCenter="0"/>
+					</s:BorderContainer>
+				</s:NavigatorContent>
+				<s:NavigatorContent 
+					width="100%"
+					height="100%"
+					label="Settings">
+					<s:BorderContainer 
+						width="100%"
+						height="100%">
+						<s:Label 
+							text="Up-dating properties for Search menu"
+							horizontalCenter="0"
+							verticalCenter="0"/>
+					</s:BorderContainer>
+				</s:NavigatorContent>
+			</mx:ViewStack>
+		</s:BorderContainer>
+	</s:VGroup>
+
+</s:WindowedApplication>
+

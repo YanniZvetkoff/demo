@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow 
+	width="400"
+	height="300"
+	creationComplete="creationCompleteHandler()"
+	mouseDownOutside="{PopUpManager.removePopUp(this);}"
+	title="Details"
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:s="library://ns.adobe.com/flex/spark">
+
+	<fx:Script>
+		<![CDATA[
+			import controller.ApplicationDispatcher;
+
+			import mx.controls.Alert;
+			import mx.controls.textClasses.TextRange;
+			import mx.events.CloseEvent;
+			import mx.managers.PopUpManager;
+
+			import workers.CustomDateWorker;
+
+			public var index:int;
+
+			private var _command:String;
+
+			[Bindable]
+			private var url:String;
+
+			[Bindable]
+			private var date:String;
+
+			[Bindable]
+			private var titl:String;
+
+			[Bindable]
+			private var description:String;
+
+			[Bindable]
+			private var favoriteVisible:Boolean = true;
+
+			[Bindable]
+			private var deleteVisible:Boolean = true;
+
+			protected function creationCompleteHandler():void
+			{
+				this.addEventListener(CloseEvent.CLOSE, ttlWndw_close);
+
+			}
+
+			protected function ttlWndw_close(evt:CloseEvent):void
+			{
+				PopUpManager.removePopUp(this);
+			}
+
+			public function set command(value:String):void
+			{
+				_command = value;
+				if (value == "favorites")
+				{
+					favoriteVisible = false;
+				}
+				else if (value == "deleted")
+				{
+					deleteVisible = false;
+				}
+			}
+
+			public function set item(value:XML):void
+			{
+				url = value.link;
+				titl = value.title;
+				description = value.description;
+				date = CustomDateWorker.formatDateFromRSS("" + value.dc_date);
+			}
+
+			// Opens author's HTML page in external window
+			private function openWebPage(event:MouseEvent):void
+			{
+				var urlRequest:URLRequest = new URLRequest(url)
+				navigateToURL(urlRequest, "_blank");
+			}
+
+			protected function delete_clickHandler(event:MouseEvent):void
+			{
+				ApplicationDispatcher.deleteItem(_command, index);
+				ttlWndw_close(null);
+			}
+
+			protected function favorites_clickHandler(event:MouseEvent):void
+			{
+				ApplicationDispatcher.addToFavoriteItem(_command, index);
+
+				ttlWndw_close(null);
+			}
+
+			protected function deleteSelection(event:MouseEvent):void
+			{
+				var titleSelectedTextRange:TextRange = new TextRange(txt_title, true);
+				var titleSelectedText:String = titleSelectedTextRange.text;
+
+				var descriptionSelectedTextRange:TextRange = new TextRange(txt_description, true);
+				var descriptionSelectedText:String = descriptionSelectedTextRange.text;
+
+				if (descriptionSelectedText.length > 0)
+				{
+					ApplicationDispatcher.deleteAllSelection(_command, false, descriptionSelectedText);
+					ttlWndw_close(null);
+				}
+				else if (titleSelectedText.length > 0)
+				{
+					ApplicationDispatcher.deleteAllSelection(_command, true, titleSelectedText);
+					ttlWndw_close(null);
+				}
+				else
+				{
+					Alert.show("Please select some text in the title or in the description.", "No text selected")
+				}
+
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+
+	<s:Button 
+		x="20"
+		y="10"
+		label="Go to site"
+		click="openWebPage(event)"/>
+	<s:Button 
+		id="delete"
+		x="160"
+		y="10"
+		label="Delete"
+		click="delete_clickHandler(event)"/>
+	<s:Button 
+		id="favorite"
+		x="244"
+		y="10"
+		label="Add to Favorites"
+		click="favorites_clickHandler(event)"
+		visible="{favoriteVisible}"/>
+	<s:Button 
+		id="delete_selection"
+		x="55"
+		y="39"
+		width="297"
+		label="Delete all records containing selection"
+		click="deleteSelection(event)"
+		visible="{deleteVisible}"/>
+
+	<mx:LinkButton 
+		x="10"
+		y="78"
+		label="{url}"
+		color="#3A2A8B"
+		textDecoration="underline"
+		click="openWebPage(event)"/>
+
+	<s:Label 
+		x="18"
+		y="110"
+		text="{date}"/>
+
+	<mx:TextArea 
+		id="txt_title"
+		x="18"
+		y="120"
+		width="355"
+		text="{titl}"
+		fontWeight="bold"
+		borderVisible="false"
+		editable="false"/>
+	<mx:TextArea 
+		id="txt_description"
+		x="18"
+		y="140"
+		width="368"
+		height="125"
+		text="{description}"
+		borderVisible="false"
+		editable="false"/>
+
+</s:TitleWindow>
+
