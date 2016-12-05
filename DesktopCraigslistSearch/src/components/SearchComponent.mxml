@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group 
+	width="100%"
+	creationComplete="creationCompleteHandler()"
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:s="library://ns.adobe.com/flex/spark">
+
+
+	<fx:Script>
+		<![CDATA[
+			import model.ApplicationData;
+			import model.Cities;
+
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.core.FlexGlobals;
+			import mx.managers.PopUpManager;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+
+			import services.Service;
+
+			[Bindable]
+			private var listCities:ArrayCollection = new ArrayCollection();
+
+			protected function creationCompleteHandler():void
+			{
+				listCities.source = Cities.cities;
+				serviceURL.dataProvider = listCities;
+				serviceURL.selectedIndex = 0;
+			}
+
+			protected function selection_service():void
+			{
+				ApplicationData.resetSearchResult();
+				ApplicationData.searchResultItems.removeAll();
+				var serviceURL:String = this.serviceURL.selectedItem;
+				sendService(serviceURL);
+			}
+
+			protected function all_service(event:MouseEvent):void
+			{
+				ApplicationData.resetSearchResult();
+				ApplicationData.searchResultItems.removeAll();
+
+				var serviceURL:String = "";
+				var cities:Array = Cities.allCities;
+				for (var i:int = 0; i < cities.length; i++)
+				{
+					serviceURL = cities[i];
+					sendService(serviceURL);
+				}
+
+			}
+
+			private function sendService(serviceURL:String):void
+			{
+
+				var keywords:String = this.keywords.text;
+
+				// computer gigs
+				//	var url:String="http://" + serviceURL + ".craigslist.org/search/cpg?query=" + keywords + "&format=rss";
+				//	var url:String="http://" + serviceURL + ".craigslist.org/search/cpg?query=" + keywords + "&format=rss";
+				//	var url:String="http://" + serviceURL + ".craigslist.org/search/jjj?query=" + keywords + "&format=rss";
+				// all comunity
+				var url:String = "http://" + serviceURL + ".craigslist.org/search/ccc?query=" + keywords + "&format=rss";
+				//service.url= yql_url(url);
+				var service:Service = Service.service;
+				service.sendService(url, resultHandler);
+			}
+
+			protected function resultHandler(event:ResultEvent):void
+			{
+				var result:String = event.result as String;
+				var splitResult:Array = result.split("<item");
+				splitResult.forEach(extractData);
+			}
+
+			protected function faultHandler(event:FaultEvent):void
+			{
+				Alert.show("Service error" + event.fault);
+			}
+
+			private function extractData(element:*, index:int, a:Array):void
+			{
+
+				var strItem:String = "" + element;
+
+				if (strItem.indexOf(" rdf:about") === 0)
+				{
+
+					var item:String = '<item' + element;
+					item = item.replace("</rdf:RDF>", '');
+					item = item.replace("rdf:", "");
+					for (var i:int = 0; i < 12; i++)
+					{
+						item = item.replace("dc:", "dc_");
+					}
+					item = item.replace("dcterms:", "");
+					item = item.replace("dcterms:", "");
+					trace("[" + index + "]   " + item);
+
+					var itemXML:XML = new XML(item);
+					ApplicationData.addSearchResultItem(itemXML);
+				}
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+
+
+	<s:TextInput 
+		id="keywords"
+		x="31"
+		y="17"
+		width="262"
+		prompt="enter keywords"/>
+	<s:DropDownList 
+		id="serviceURL"
+		x="313"
+		y="18"/>
+
+	<s:Button 
+		x="451"
+		y="18"
+		label="Submit selection"
+		click="selection_service();"/>
+	<s:Button 
+		x="688"
+		y="17"
+		label="Search all"
+		click="all_service(event)"/>
+
+</s:Group>

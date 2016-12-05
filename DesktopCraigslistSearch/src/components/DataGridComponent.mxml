@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			doubleClickEnabled="true" gridDoubleClick="itemDoubleClick(event)"
+			variableRowHeight="true"
+			width="100%" height="100%" 
+			>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+			
+			import spark.events.GridEvent;
+			
+			import workers.CustomDateWorker;
+			
+			[Bindable]
+			public var command:String;
+			
+			private function itemDoubleClick(event:GridEvent):void {
+				var item:XML = (XML)(event.currentTarget.selectedItem);
+				
+				var ttlWindow:ShowDetails = new ShowDetails();
+				ttlWindow.item = item;
+				ttlWindow.command = command;
+				ttlWindow.index = selectedIndex;
+				PopUpManager.addPopUp(ttlWindow, this, true);
+				PopUpManager.centerPopUp(ttlWindow);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:columns>
+		<s:ArrayList>
+			<s:GridColumn width="80" headerText="{command}" itemRenderer="renderers.DGDeleteItemRenderer">
+				<s:headerRenderer>
+					<fx:Component>
+						<s:DefaultGridHeaderRenderer chromeColor="0xFFFFFF">
+							<s:Label text="" />
+						</s:DefaultGridHeaderRenderer>
+					</fx:Component>
+				</s:headerRenderer>
+			</s:GridColumn>
+			<s:GridColumn width="100" dataField="dc_date" headerText="Date" 
+						  sortCompareFunction="CustomDateWorker.dateCompareFunction" itemRenderer="renderers.DGDateItemRenderer"/>
+			<s:GridColumn width="200" dataField="title" headerText="Title"/>
+			<s:GridColumn  dataField="description" headerText="Description"/>
+		</s:ArrayList>
+	</s:columns>
+	
+</s:DataGrid>
