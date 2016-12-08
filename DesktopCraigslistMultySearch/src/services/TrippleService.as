@@ -12,9 +12,6 @@ package services
 	public class TrippleService
 	{
 
-		[Bindable]
-		public static var activeServices:int = 0;
-
 		private var _httpService:HTTPService = new HTTPService();
 
 		public function TrippleService(URL:String)
@@ -26,17 +23,13 @@ package services
 
 		public function sendService():void
 		{
-			activeServices++;
 			_httpService.addEventListener(ResultEvent.RESULT, resultHandlerRSS);
 			_httpService.addEventListener(FaultEvent.FAULT, faultHandler);
 			_httpService.send();
-
-			trace("activeServices  sent" + activeServices);
 		}
 
 		private function resultHandler(event:ResultEvent):void
 		{
-			activeServices--;
 			var result:String = event.result as String;
 			trace(result);
 			result = result.substr(result.indexOf("<span class=\"resultcount\">") + 26);
@@ -49,12 +42,10 @@ package services
 			splitResult.forEach(extractData);
 			trace("number of results  " + splitResult.length);
 
-			trace("activeServices  result handler " + activeServices);
 		}
 
 		protected function resultHandlerRSS(event:ResultEvent):void
 		{
-			activeServices--;
 			var result:String = event.result as String;
 			trace(result);
 			var splitResult:Array = result.split("<item");
@@ -71,7 +62,6 @@ package services
 
 		protected function faultHandler(event:FaultEvent):void
 		{
-			activeServices--;
 			if (faultCount < 3)
 			{
 				faultCount++;

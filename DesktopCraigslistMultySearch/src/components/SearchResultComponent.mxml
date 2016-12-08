@@ -53,12 +53,4 @@
 		paddingRight="5"
 		paddingTop="2"/>
 
-
-
-	<s:Label 
-		y="30"
-		right="120"
-		text="Active Services {TrippleService.activeServices}"
-		fontSize="20"/>
-
 </s:BorderContainer>
