@@ -1,0 +1,401 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+
+
+.button {
+	
+	/* textxt-decoration: 		none;
+	font-weight: 			bold;
+	user-select: 			none;
+	
+	
+	/* layout */
+	display: inline-block;
+	zoom: 1;
+	position: 				relative;
+	
+	-webkit-border-radius: 	8px;
+	-moz-border-radius: 	8px;
+	border-radius: 			8px;
+	
+	/* effects */
+	border-top: 		1px solid #fff;
+	border-top: 		1px solid rgba(255,255,255,0.8);
+	border-bottom: 		1px solid rgba(0,0,0,0.1);
+	
+	transition: 		background .2s ease-in-out;
+	
+	/* color */
+	color: 				hsl(0, 0%, 40%) !important;
+	background-color: 	hsl(0, 0%, 75%);
+	
+	-webkit-box-shadow: inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(0, 0%, 60%) 0 .1em 3px, hsl(0, 0%, 45%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-moz-box-shadow: 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(0, 0%, 60%) 0 .1em 3px, hsl(0, 0%, 45%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-o-box-shadow: 		inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(0, 0%, 60%) 0 .1em 3px, hsl(0, 0%, 45%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-ms-box-shadow: 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(0, 0%, 60%) 0 .1em 3px, hsl(0, 0%, 45%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	box-shadow:		 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(0, 0%, 60%) 0 .1em 3px, hsl(0, 0%, 45%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+}
+
+/* -------------- button (tag) -------------- */
+
+button.button {
+	border-left: none;
+	border-right: none;
+}
+button.button:hover {
+	cursor: pointer;
+}
+
+
+/* -------------- icon -------------- */
+.button:before {
+	font: 			1.2em/0 sans-serif;
+	content: 		attr(data-icon); /* gets the icon value from the custom data attribute and puts it infront of the button label */
+	margin-right: 	0.2em;
+}
+
+
+/* -------------- colours -------------- */
+
+.orange {
+	color: 				hsl(39, 100%, 27%) !important;
+	background-color: 	hsl(39, 100%, 57%);
+	
+	-webkit-box-shadow: inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(39, 100%, 42%) 0 .1em 3px, hsl(39, 100%, 27%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-moz-box-shadow: 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(39, 100%, 42%) 0 .1em 3px, hsl(39, 100%, 27%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-o-box-shadow: 		inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(39, 100%, 42%) 0 .1em 3px, hsl(39, 100%, 27%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-ms-box-shadow: 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(39, 100%, 42%) 0 .1em 3px, hsl(39, 100%, 27%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	box-shadow:		 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(39, 100%, 42%) 0 .1em 3px, hsl(39, 100%, 27%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+}
+.button.orange:hover, .button.orange.pressed { 	background-color: hsl(39, 100%, 68%); }
+
+.yellow {
+	color: 				hsl(55, 100%, 28%) !important;
+	background-color: 	hsl(55, 100%, 60%);
+	
+	-webkit-box-shadow: inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(55, 100%, 40%) 0 .1em 3px, hsl(55, 100%, 28%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-moz-box-shadow: 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(55, 100%, 40%) 0 .1em 3px, hsl(55, 100%, 28%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-o-box-shadow: 		inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(55, 100%, 40%) 0 .1em 3px, hsl(55, 100%, 28%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-ms-box-shadow: 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(55, 100%, 40%) 0 .1em 3px, hsl(55, 100%, 28%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	box-shadow:		 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(55, 100%, 40%) 0 .1em 3px, hsl(55, 100%, 28%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+}
+.button.yellow:hover, .button.yellow.pressed { 	background-color: hsl(55, 100%, 70%); }
+
+
+.blue {
+	color: 				hsl(208, 50%, 40%) !important;
+	background-color: 	hsl(208, 100%, 75%);
+	
+	-webkit-box-shadow: inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(208, 50%, 55%) 0 .1em 3px, hsl(208, 50%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px;	/* drop shadow */
+	-moz-box-shadow: 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(208, 50%, 55%) 0 .1em 3px, hsl(208, 50%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px;	/* drop shadow */
+	-o-box-shadow: 		inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(208, 50%, 55%) 0 .1em 3px, hsl(208, 50%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px;	/* drop shadow */
+	-ms-box-shadow: 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(208, 50%, 55%) 0 .1em 3px, hsl(208, 50%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px;	/* drop shadow */
+	box-shadow: 		inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(208, 50%, 55%) 0 .1em 3px, hsl(208, 50%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px;	/* drop shadow */
+}
+.button.blue:hover, .button.blue.pressed { 	background-color: hsl(208, 100%, 65%); }
+
+.magenta {
+	color: 				hsl(280, 30%, 40%) !important;
+	background-color: 	hsl(280, 50%, 72%);
+	
+	-webkit-box-shadow: inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(280, 30%, 60%) 0 .1em 3px, hsl(280, 30%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px;	/* drop shadow */
+	-moz-box-shadow: 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(280, 30%, 60%) 0 .1em 3px, hsl(280, 30%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px;	/* drop shadow */
+	-o-box-shadow: 		inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(280, 30%, 60%) 0 .1em 3px, hsl(280, 30%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px;	/* drop shadow */
+	-ms-box-shadow: 		inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(280, 30%, 60%) 0 .1em 3px, hsl(280, 30%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px;	/* drop shadow */
+	box-shadow: 		inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(280, 30%, 60%) 0 .1em 3px, hsl(280, 30%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px;	/* drop shadow */
+}
+.button.magenta:hover, .button.magenta.pressed { 	background-color: hsl(280, 50%, 82%); }
+
+.green {
+	color: 				hsl(88, 70%, 25%) !important;
+	background-color: 	hsl(88, 70%, 60%);
+	-webkit-box-shadow: inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(88, 70%, 40%) 0 .1em 3px, hsl(88, 70%, 30%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-moz-box-shadow: 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(88, 70%, 40%) 0 .1em 3px, hsl(88, 70%, 30%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-o-box-shadow: 		inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(88, 70%, 40%) 0 .1em 3px, hsl(88, 70%, 30%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-ms-box-shadow: 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(88, 70%, 40%) 0 .1em 3px, hsl(88, 70%, 30%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	box-shadow:		 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(88, 70%, 40%) 0 .1em 3px, hsl(88, 70%, 30%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+}
+.button.green:hover, .button.green.pressed { 	background-color: hsl(88, 70%, 75%); }
+
+.pink {
+	color: 				hsl(340, 100%, 30%) !important;
+	background-color: 	hsl(340, 100%, 75%);
+	-webkit-box-shadow: inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(340, 70%, 50%) 0 .1em 3px, hsl(340, 80%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-moz-box-shadow: 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(340, 70%, 50%) 0 .1em 3px, hsl(340, 80%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-o-box-shadow: 		inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(340, 70%, 50%) 0 .1em 3px, hsl(340, 80%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-ms-box-shadow: 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(340, 70%, 50%) 0 .1em 3px, hsl(340, 80%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	box-shadow: 		inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(340, 70%, 50%) 0 .1em 3px, hsl(340, 80%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+}
+.button.pink:hover, .button.pink.pressed { 	background-color: hsl(340, 100%, 83%); }
+
+
+
+.button.transparent {
+	color: 	rgba(0,0,0,0.5) !important;
+}
+.button.transparent, .button.transparent:hover, .button.transparent:focus, .button.transparent:active {
+	background-color: transparent;
+	background-image: none;
+}
+.button.transparent:hover {
+	opacity: .9;
+}
+
+.red {
+	color: 				hsl(10, 100%, 30%) !important;
+	background-color: 	hsl(10, 100%, 75%);
+	-webkit-box-shadow: inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(10, 70%, 50%) 0 .1em 3px, hsl(10, 80%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-moz-box-shadow: 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(10, 70%, 50%) 0 .1em 3px, hsl(10, 80%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-o-box-shadow: 		inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(10, 70%, 50%) 0 .1em 3px, hsl(10, 80%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	-ms-box-shadow: 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(10, 70%, 50%) 0 .1em 3px, hsl(10, 80%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+	box-shadow: 		inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+		hsl(10, 70%, 50%) 0 .1em 3px, hsl(10, 80%, 40%) 0 .3em 1px, /* color border */
+		rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+}
+.button.red:hover, .button.red.pressed { 	background-color: hsl(10, 100%, 83%); }
+
+
+/* -------------- States -------------- */
+
+.button:hover, .button.pressed {
+	background-color: 	hsl(0, 0%, 83%);
+}
+
+
+
+.button:active, .button:focus, .button.pressed{
+	background-image: 	gradient(radial, 50% 0, 100, 50% 0, 0, from( rgba(255,255,255,0) ), to( rgba(255,255,255,0) ));
+	background-image: 	-webkit-gradient(radial, 50% 0, 100, 50% 0, 0, from( rgba(255,255,255,0) ), to( rgba(255,255,255,0) ));
+	background-image: 	-moz-gradient(radial, 50% 0, 100, 50% 0, 0, from( rgba(255,255,255,0) ), to( rgba(255,255,255,0) ));
+	
+	-webkit-box-shadow: inset rgba(255,255,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.2) 0 -0.1em .3em, /* inner shadow */ 
+		rgba(0,0,0,0.4) 0 .1em 1px, /* border */
+		rgba(0,0,0,0.2) 0 .2em 6px; /* drop shadow */
+	-moz-box-shadow: 	inset rgba(255,255,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.2) 0 -0.1em .3em, /* inner shadow */ 
+		rgba(0,0,0,0.4) 0 .1em 1px, /* border */
+		rgba(0,0,0,0.2) 0 .2em 6px; /* drop shadow */
+	-o-box-shadow:	 	inset rgba(255,255,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.2) 0 -0.1em .3em, /* inner shadow */ 
+		rgba(0,0,0,0.4) 0 .1em 1px, /* border */
+		rgba(0,0,0,0.2) 0 .2em 6px; /* drop shadow */
+	-ms-box-shadow:	 	inset rgba(255,255,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.2) 0 -0.1em .3em, /* inner shadow */ 
+		rgba(0,0,0,0.4) 0 .1em 1px, /* border */
+		rgba(0,0,0,0.2) 0 .2em 6px; /* drop shadow */
+	box-shadow: 		inset rgba(255,255,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.2) 0 -0.1em .3em, /* inner shadow */ 
+		rgba(0,0,0,0.4) 0 .1em 1px, /* border */
+		rgba(0,0,0,0.2) 0 .2em 6px; /* drop shadow */
+	
+	-webkit-transform: 	translateY(.2em);
+	-moz-transform: 	translateY(.2em);
+	-o-transform: 		translateY(.2em);
+	-ms-transform: 		translateY(.2em);
+	transform: 			translateY(.2em);
+	
+	outline: none;
+	color: rgba(254,255,255,0.9) !important;
+	text-shadow: rgba(0,0,0,0.2) 0 1px 2px;
+	
+}
+
+/* -------------- Shapes -------------- */
+
+/* round */
+.round { 
+	border-top: none; 
+	-webkit-border-radius: 	1em; 
+	-moz-border-radius: 	1em; 
+	border-radius: 			1em; 
+}
+
+/* oval */
+.oval {
+	border-top: 			none; 
+	padding-left: 			.8em;
+	padding-right: 			.8em;
+	-webkit-border-radius: 	5em / 2em; 
+	-moz-border-radius: 	5em / 2em; 
+	border-radius: 			5em / 2em; 
+}
+
+/* brackets */
+.brackets { 
+	border-top: 			none; 
+	-webkit-border-radius: 	.5em / 1em;
+	-moz-border-radius: 	.5em / 1em;
+	border-radius: 			.5em / 1em;
+}
+
+/* skew_right */
+.skew_right { 
+	border-top: 			none; 
+	padding-right: 			1 em;
+	padding-left: 			1 em;	
+	-webkit-border-radius: 	5em 1em / 5em 1em;  
+	-moz-border-radius: 	5em 1em / 5em 1em;  
+	border-radius: 			5em 1em / 5em 1em;  
+}
+
+/* skew_left */
+.skew_left { 
+	border-top: 			none; 
+	padding-left: 			1 em;
+	padding-right: 			1 em;	
+	-webkit-border-radius: 	1em 5em / 1em 5em;  
+	-moz-border-radius: 	1em 5em / 1em 5em;  
+	border-radius: 			1em 5em / 1em 5em;  
+}
+
+/* back */
+.back { 
+	border-top-color: 		rgba(255,255,255,0.5);
+	-webkit-border-radius: 	1.6em 1.6em 1em 1em / 4em 4em 1em 1em; 
+	-moz-border-radius: 	1.6em 1.6em 1em 1em / 4em 4em 1em 1em; 
+	border-radius: 			1.6em 1.6em 1em 1em / 4em 4em 1em 1em; 
+}
+
+/* knife */
+.knife { 						
+	padding-left: 1.5em;
+	-webkit-border-radius: 	.2em .5em .5em 8em / .2em .5em .5em 5em; 
+	-moz-border-radius: 	.2em .5em .5em 8em / .2em .5em .5em 5em; 
+	border-radius: 			.2em .5em .5em 8em / .2em .5em .5em 5em; 
+}
+
+/* shield */
+.shield  { 
+	-webkit-border-radius: 	.4em .4em 2em 2em / .4em .4em 3em 3em; 
+	-moz-border-radius: 	.4em .4em 2em 2em / .4em .4em 3em 3em;
+	border-radius: 			.4em .4em 2em 2em / .4em .4em 3em 3em;
+	padding-left: 	.8em;
+	padding-right: 	.8em;
+}
+
+/* drop */
+.drop_left {
+	border-top: none;
+	-webkit-border-radius: 	2em 5em  2em .6em / 2em 4em 2em .6em; 
+	-moz-border-radius: 	2em 5em  2em .6em / 2em 4em 2em .6em; 
+	border-radius: 			2em 5em  2em .6em / 2em 4em 2em .6em; 
+}
+
+.drop_right {
+	border-top: none;
+	-webkit-border-radius: 	5em 2em  .6em 2em / 4em 2em .6em 2em; 
+	-moz-border-radius: 	5em 2em  .6em 2em / 4em 2em .6em 2em; 
+	border-radius: 			5em 2em  .6em 2em / 4em 2em .6em 2em; 
+}
+
+/* phone */
+.phone_left {
+	border-top: none;
+	-webkit-border-radius: 	2em 5em  2em 2em / 2em 4em 2em 2em; 
+	-moz-border-radius: 	2em 5em  2em 2em / 2em 4em 2em 2em; 
+	border-radius: 			2em 5em  2em 2em / 2em 4em 2em 2em; 
+}
+
+.phone_right {
+	border-top: none;
+	-webkit-border-radius: 	5em 2em  2em 2em / 4em 2em 2em 2em; 
+	-moz-border-radius: 	5em 2em  2em 2em / 4em 2em 2em 2em; 
+	border-radius: 			5em 2em  2em 2em / 4em 2em 2em 2em; 
+}
+
+/* front */
+.front { 
+	border-top-color: 		rgba(255,255,255,0.5);
+	-webkit-border-radius: 	1em 1em 1.6em 1.6em / 1em 1em 4em 4em ; 
+	-moz-border-radius: 	1em 1em 1.6em 1.6em / 1em 1em 4em 4em ; 
+	border-radius: 			1em 1em 1.6em 1.6em / 1em 1em 4em 4em ; 
+}
+
+/* logo */
+.logo {
+	z-index:1001;
+	border-top: none;
+	-webkit-border-radius: 	8em 20em  0.6em 8em / 8em 14em 0.6em 8em; 
+	-moz-border-radius: 	8em 20em  0.6em 8em / 8em 14em 0.6em 8em; 
+	border-radius: 			8em 20em  0.6em 8em / 8em 14em 0.6em 8em; 
+	padding: 0.8em 1.2em 0.3em 0.8em;
+}
+#logo_comfy_full {
+	width: 14em;
+}
